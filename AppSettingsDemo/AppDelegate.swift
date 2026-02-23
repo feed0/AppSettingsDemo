@@ -15,9 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        let maxConcurrentDownloads = AppSettings.shared.int(forKey: "MaxConsurrentDownloads")
-        print("MaxConsurrentDownloads: \(maxConcurrentDownloads)")
+        /// Override point for customization after application launch.
+        let maxConcurrentDownloads = AppSettings.shared.int(forKey: "MaxConcurrentDownloads")
+        print("MaxConcurrentDownloads: \(maxConcurrentDownloads ?? 0)")
         return true
     }
 

@@ -10,12 +10,20 @@ import Foundation
 
 final public class AppSettings {
     
+    // MARK: - Properties
+    
+    /// Singleton instance
     public static let shared = AppSettings()
     
     private var settings: [String: Any] = ["Theme": "Dark",
-                                           "MaxConsurrentDownloads": 4]
+                                           "MaxConcurrentDownloads": 4]
+    // MARK: - Init
     
     private init() {}
+    
+    // MARK: - Public methods
+    
+    // MARK: Key getters
     
     public func string(forKey key: String) -> String? {
         return settings[key] as? String
