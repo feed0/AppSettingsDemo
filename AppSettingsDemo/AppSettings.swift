@@ -32,4 +32,10 @@ final public class AppSettings {
     public func int(forKey key: String) -> Int? {
         return settings[key] as? Int
     }
+    
+    // MARK: Value setter
+    
+    public func set(value: Any, forKey key: String) {
+        settings[key] = value
+    }
 }
