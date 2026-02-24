@@ -18,7 +18,9 @@ final public class AppSettings {
     private var settings: [String: Any] = ["Theme": "Dark",
                                            "MaxConcurrentDownloads": 4]
     
-    private let serialQueue = DispatchQueue(label: "serialQueue")
+    private let concurrentQueue = DispatchQueue(
+        label: "concurrentQueue",
+        attributes: .concurrent)
     
     // MARK: - Init
     
@@ -26,12 +28,12 @@ final public class AppSettings {
     
     // MARK: - Public methods
     
-    // MARK: Key getters
+    // MARK: settings value getters
     
     public func string(forKey key: String) -> String? {
         var result: String?
         
-        serialQueue.sync {
+        concurrentQueue.sync {
             result = settings[key] as? String
         }
         
@@ -41,18 +43,19 @@ final public class AppSettings {
     public func int(forKey key: String) -> Int? {
         var result: Int?
         
-        serialQueue.sync {
+        concurrentQueue.sync {
             result = settings[key] as? Int
         }
         
         return result
     }
     
-    // MARK: Value setter
+    // MARK: settings value setter
     
     public func set(value: Any, forKey key: String) {
-        serialQueue.sync {
-            settings[key] = value
+        /// .barrier flag ensures that the queue wont execute then next block until all previous blocks have completed.
+        concurrentQueue.async(flags: .barrier) {
+            self.settings[key] = value
         }
     }
 }
